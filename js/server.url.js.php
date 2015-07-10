@@ -1,11 +1,11 @@
 'use strict';
 var server = {};
-server.web = "http://flaba-mellowonpsx.rhcloud.com:80";
-server.api = "http://flaba-mellowonpsx.rhcloud.com:3000";
+server.web = "http://flabaweb-mellowonpsx.rhcloud.com:80";
+server.api = "http://flaba-mellowonpsx.rhcloud.com:8080";
 
 <?php
     // test server
     if($_SERVER[SERVER_NAME] == "localhost")
-    echo "server.web = \"http://localhost:8080\"\n";
-    echo "server.api = \"http://localhost:3000\"";
+    echo "server.web = \"http://localhost:8000\"\n";
+    echo "server.api = \"http://localhost:8080\"";
 ?>
