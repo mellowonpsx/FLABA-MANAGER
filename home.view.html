@@ -1,5 +1,14 @@
 <h2>Hi {{vm.user.username}} (level: {{vm.user.level}})!</h2>
 <div class="location-list">
+    <form role="form">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="input-group-btn">
+                    <input ng-model="query" type="text" class="form-control" placeholder="Filter by" autofocus>
+                </div><!-- /input-group -->
+          </div><!-- /.col-xs-12 -->
+        </div><!-- /.row -->
+    </form>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -68,7 +77,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="location in vm.locations|orderBy:orderByField:!reverseSort">
+            <tr ng-repeat="location in vm.locations|orderBy:orderByField:!reverseSort|filter:{$:query}">
                 <td>{{location.id}}</td>
                 <td>{{location.comune}}</td>
                 <td>{{location.nome}}</td>

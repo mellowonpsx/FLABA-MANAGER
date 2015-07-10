@@ -1,7 +1,7 @@
 'use strict';
 var server = {};
 server.web = "http://flabaweb-mellowonpsx.rhcloud.com:80";
-server.api = "http://flaba-mellowonpsx.rhcloud.com:8080";
+server.api = "http://flaba-mellowonpsx.rhcloud.com:80";
 
 <?php
     // test server
