@@ -31,7 +31,7 @@
  
         function SetCredentials(username, password, response) {
             
-            return hash(username + ':' + password).then(function(digest) {
+            /*return hash(username + ':' + password).then(function(digest) {
                 //console.log(digest);
                 var authdata = digest;
                 
@@ -49,7 +49,20 @@
                 //$http.defaults.auth.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
                 $http.defaults.headers.common['authorization'] = 'Basic ' + authdata; // jshint ignore:line
                 $cookieStore.put('globals', $rootScope.globals);
-            });
+            });*/
+            var authdata = window.btoa(username + ':' + password);
+            console.log(authdata);
+            //var authdata = digest;
+            $rootScope.globals = {
+                currentUser: {
+                    username: username,
+                    authdata: authdata,
+                    level: response.data.level,
+                    id: response.data.id
+                }
+            };
+            $http.defaults.headers.common['authorization'] = 'Basic ' + authdata; // jshint ignore:line
+            $cookieStore.put('globals', $rootScope.globals);
         }
  
         function ClearCredentials() {

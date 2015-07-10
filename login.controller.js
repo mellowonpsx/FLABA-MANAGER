@@ -20,11 +20,14 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password, response).then(function (){
+                    /*AuthenticationService.SetCredentials(vm.username, vm.password, response).then(function (){
                         //vm.dataLoading = false;
                         $location.path('/');
                         $rootScope.$apply();
-                    });
+                    });*/
+                    AuthenticationService.SetCredentials(vm.username, vm.password, response);
+                    $location.path('/');
+                    //$rootScope.$apply();
                 } else {
                     FlashService.Error("Error "+response.error.code+": "+response.error.message);
                     vm.dataLoading = false;
