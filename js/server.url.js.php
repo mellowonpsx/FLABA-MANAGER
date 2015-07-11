@@ -15,7 +15,10 @@ server.api = "https://flaba-mellowonpsx.rhcloud.com";
         ?>
 
     var forceSSL = function () {
-        if (window.location.protocol !== 'https') {
+        if (window.location.protocol !== 'https' &&
+            window.location.protocol !== 'https:' &&
+            window.location.protocol !== 'https://' &&
+            window.location.protocol !== 'https:/'  ) {
             console.log('protocol: ', window.location.protocol);
             window.location = window.location.href.replace('http', 'https');
         }
