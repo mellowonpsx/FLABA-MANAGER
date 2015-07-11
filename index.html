@@ -4,28 +4,36 @@
 	<meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>FLABA - Franchini-Leoni App Balneabilità più API</title>
+        <title>FLABA - Franchini/Leoni App Balneabilità &amp; API</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
         <link rel="stylesheet" href="css/flaba.css" />
+        <link rel="shortcut icon" type="image/png" href="/favico.ico"/>
     </head>
     <body>
-	<div class="jumbotron">
-        <div class="container">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+        <div class="container-fluid">
+            <div class="jumbotron transparent">
+            <div class="row">
+                <div class="container navbar-fixed-top" ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+            </div>
+            <div class="row">
                 <div ng-view></div>
             </div>
+            </div>
         </div>
-	</div>
-    <div class="footer credits text-center">
-        <p>
-            <a href="https://github.com/chube">Franchini A.</a> &dash;&dash; <a href="https://github.com/mellowonpsx">Leoni S.</a>
-        </p>
-    </div>
-	
+        <div class="margin-bottom-10">
+            &nbsp;
+        </div>
+        <footer class="footer credits container">
+            <p class="text-center">
+                <span class="pull-left">flaba</span>
+                <a href="https://github.com/chube">Franchini A.</a> &dash; <a href="https://github.com/mellowonpsx">Leoni S.</a>
+                <span class="pull-right">&copy; Rightocopy</span>
+            </p>
+        </footer>
+        
+        <!-- jquery script-->
 	<script src="js/jquery.min.js"></script>
-	
 	<!-- angular js core modules-->
 	<script src="angularjs/angular.min.js"></script>
         <script src="angularjs/angular-route.js"></script>

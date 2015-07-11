@@ -8,14 +8,17 @@
 
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
-        //console.log($locationProvider);
-        //console.log($locationProvider.hashPrefix('asd'));
         //$locationProvider.html5Mode({enabled: true, requireBase: false});
         //$locationProvider.html5Mode({enabled: true});
         $routeProvider
         .when('/login', {
             controller: 'LoginController',
             templateUrl: 'login.view.html',
+            controllerAs: 'vm'
+        })
+        .when('/location/:id/modifica', {
+            controller: 'EditLocationController',
+            templateUrl: 'location.view.html',
             controllerAs: 'vm'
         })
         /*.when('/deleteLocation/:id', {

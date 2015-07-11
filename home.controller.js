@@ -58,7 +58,10 @@
             };
             //var elementoModificato = $.grep(vm.locations, function(e){ return e.id == id; })[0];
             var posizioneElemento= vm.locations.map(function(x) {return x.id; }).indexOf(id);
+            var vecchiaClassificazione = vm.locations[posizioneElemento].classificazione;
+            console.log(vecchiaClassificazione);
             vm.locations[posizioneElemento].classificazione = classificationOption[codice];
+            console.log(vecchiaClassificazione);
             var elementoModificato = vm.locations[posizioneElemento];
             $http.put(server.api+"/locations/"+id+"/", { updateValue: elementoModificato })
             .success(function (response){
@@ -70,6 +73,7 @@
                 else
                 {
                     //error, reload location from server!
+                    elementoModificato.classificazione = vecchiaClassificazione;
                     FlashService.Error("Error "+response.error.code+": "+response.error.message);
                     loadLocations();
                     
@@ -78,6 +82,7 @@
             .error(function(data, status, headers, config)
             {
                 //error, reload location from server!
+                elementoModificato.classificazione = vecchiaClassificazione;
                 FlashService.Error("Error 503: service unaviable, check network connection");
                 loadLocations();
                 console.log(data);

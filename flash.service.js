@@ -48,6 +48,8 @@
                 type: 'error',
                 keepAfterLocationChange: keepAfterLocationChange
             };
+            //$location.hash('flash');
+            //$anchorScroll('flash');
         }
     }
 
