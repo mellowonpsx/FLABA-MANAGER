@@ -1,7 +1,7 @@
 'use strict';
 var server = {};
-server.web = "http://flabaweb-mellowonpsx.rhcloud.com:80";
-server.api = "http://flaba-mellowonpsx.rhcloud.com:80";
+server.web = "https://flabaweb-mellowonpsx.rhcloud.com";
+server.api = "https://flaba-mellowonpsx.rhcloud.com";
 
 <?php
     // test server
@@ -10,4 +10,17 @@ server.api = "http://flaba-mellowonpsx.rhcloud.com:80";
         echo "server.web = \"http://localhost:8000\"\n";
         echo "server.api = \"http://localhost:8080\"\n";
     }
+    else
+    {
+        ?>
+
+    var forceSSL = function () {
+        if (window.location.protocol !== 'https') {
+            window.location = window.location.href.replace('http', 'https');
+        }
+    };
+    forceSSL();
+        <?php
+    }
 ?>
+
