@@ -1,0 +1,12 @@
+<legend>
+    {{include_model.nome_campo[include_model.nome_campo.default]}}
+    <span ng-init="tempdata[include_model.nome_campo[include_model.nome_campo.default]].visible = false" ng-model="tempdata" ng-click="tempdata[include_model.nome_campo[include_model.nome_campo.default]].visible = !tempdata[include_model.nome_campo[include_model.nome_campo.default]].visible">
+        <span ng-if="!tempdata[include_model.nome_campo[include_model.nome_campo.default]].visible" class="glyphicon glyphicon-info-sign pull-right"></span>
+        <span ng-if="tempdata[include_model.nome_campo[include_model.nome_campo.default]].visible" class="glyphicon glyphicon-collapse-up pull-right"></span>
+    </span>
+    <span ng-model="tempdata" ng-if="tempdata[include_model.nome_campo[include_model.nome_campo.default]].visible">
+        <br /><span><span class="flag-icon flag-icon-it"></span>: {{include_model.nome_campo.IT}},</span>
+        <br /><span><span class="flag-icon flag-icon-us"></span>: {{include_model.nome_campo.EN}},</span>
+        <br /><span><span class="flag-icon flag-icon-de"></span>: {{include_model.nome_campo.DE}}</span>
+    </span>
+</legend>

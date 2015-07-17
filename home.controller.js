@@ -10,6 +10,12 @@
         var vm = this;
         vm.user = null;
         vm.locations = null;
+        vm.classificationOption = [
+            {codice: 3, nominale: 'eccellente'},
+            {codice: 2, nominale: 'buona'},
+            {codice: 1, nominale: 'scarsa'},
+            {codice: 0, nominale: 'merda'}
+        ];
         vm.removeLocation = removeLocation;
         vm.updateLocationClassification = updateLocationClassification;
         initController();
@@ -48,26 +54,21 @@
             });
         }
         
-        function updateLocationClassification(codice, id) {
+        function updateLocationClassification(codiceClassificazione, _id) {
             vm.dataLoading = true;
-            var classificationOption = {
-                3: {codice: '3', nominale: 'eccellente'},
-                2: {codice: '2', nominale: 'buona'},
-                1: {codice: '1', nominale: 'scarsa'},
-                0: {codice: '0', nominale: 'merda'}
-            };
-            //var elementoModificato = $.grep(vm.locations, function(e){ return e.id == id; })[0];
-            var posizioneElemento= vm.locations.map(function(x) {return x.id; }).indexOf(id);
-            var vecchiaClassificazione = vm.locations[posizioneElemento].classificazione;
-            console.log(vecchiaClassificazione);
-            vm.locations[posizioneElemento].classificazione = classificationOption[codice];
-            console.log(vecchiaClassificazione);
+            var qualita_acque = JSON.parse('[{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":3},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"eccellente","EN":"excellent","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":2},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"buona","EN":"good","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":1},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"sufficiente","EN":"sufficient","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":0},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"scarsa","EN":"poor","DE":"-"}}}}]');
+            var posizioneElemento= vm.locations.map(function(x) {return x._id; }).indexOf(_id);
+            var posizioneClassificazione= qualita_acque.map(function(x){ return x.qualita_acque.stelle.valore}).indexOf(parseInt(codiceClassificazione));
+            var vecchiaClassificazione = vm.locations[posizioneElemento].qualita_acque;
+            var nuovaClassificazione= qualita_acque[posizioneClassificazione].qualita_acque;
+            vm.locations[posizioneElemento].qualita_acque = nuovaClassificazione;
             var elementoModificato = vm.locations[posizioneElemento];
-            $http.put(server.api+"/locations/"+id+"/", { updateValue: elementoModificato })
+            delete elementoModificato.editing;
+            $http.put(server.api+"/location/"+_id, { updateValue: elementoModificato })
             .success(function (response){
                 if(response.success)
                 {
-                    vm.locations = response.data.locations;
+                    //vm.locations = response.data.locations;
                     vm.dataLoading = false;
                 }
                 else
@@ -76,7 +77,6 @@
                     elementoModificato.classificazione = vecchiaClassificazione;
                     FlashService.Error("Error "+response.error.code+": "+response.error.message);
                     loadLocations();
-                    
                 }
             })
             .error(function(data, status, headers, config)
@@ -90,88 +90,23 @@
                 console.log(headers);
                 console.log(config);
             });
+           
         }
         
-    function addLocationClassification(nuovaLocation) {
-            /*
-            //var elementoModificato = $.grep(vm.locations, function(e){ return e.id == id; })[0];
-            var posizioneElemento= vm.locations.map(function(x) {return x.id; }).indexOf(id);
-            vm.locations[posizioneElemento].classificazione = classificationOption[codice];
-            var elementoModificato = vm.locations[posizioneElemento];
-            $http.put("http://localhost:3000/locations/"+id+"/", { updateValue: elementoModificato })
-            .success(function (response){
-                if(response.success)
-                {
-                    vm.locations = response.data.locations;
-                    vm.dataLoading = false;
-                }
-                else
-                {
-                    //error, reload location from server!
-                    FlashService.Error("Error "+response.error.code+": "+response.error.message);
-                    loadLocations();
-                    
-                }
-            })
-            .error(function(data, status, headers, config)
-            {
-                //error, reload location from server!
-                FlashService.Error("Error 503: service unaviable, check network connection");
-                loadLocations();
-                console.log(data);
-                console.log(status);
-                console.log(headers);
-                console.log(config);
-            });*/
-        }
-        
-        //vm.contactApi = contactApi;
-        //vm.contactApiNoAuth = contactApiNoAuth;
-        
-        /*function contactApi() {
-            //console.log("mando qualcosa: ")
-            $http.post("http://localhost:3000/")
-            .success(function (response){
-                console.log(response);
-                //console.log(response);
-            })
-            .error(function(data, status, headers, config)
-            {
-                console.log(data);
-                console.log(status);
-                console.log(headers);
-                console.log(config);
-            });
-        }
-        
-        function contactApiNoAuth() {
-            //console.log("mando qualcosa: ")
-            $http.defaults.headers.common.authorization = 'Basic '; // jshint ignore:line
-            $http.post("http://localhost:3000/")
-            .success(function (response){
-                console.log(response);
-                //console.log(response);
-            })
-            .error(function(data, status, headers, config)
-            {
-                console.log(data);
-                console.log(status);
-                console.log(headers);
-                console.log(config);
-            });
-        }*/
-        function removeLocation(id) {    
-            
+        function removeLocation(_id) {    
+            var posizioneElemento= vm.locations.map(function(x) {return x._id; }).indexOf(_id);
+            var id = vm.locations[posizioneElemento].id.valore;
             var risposta = confirm("Hai scelto di eliminare la location numero "+id+".\nPremere ok per cancellare.\nAttenzione: azione irreversibile!");
             if (risposta != true) {
                 return;
             }            
             vm.dataLoading = true;
-            $http.delete(server.api+"/locations/"+id+"/")
+            $http.delete(server.api+"/location/"+_id)
             .success(function (response){
                 if(response.success)
                 {
-                    vm.locations = response.data.locations;
+                    delete vm.locations[posizioneElemento];
+                    //loadLocations();
                     vm.dataLoading = false;
                 }
                 else
@@ -179,7 +114,6 @@
                     //error, reload location from server!
                     FlashService.Error("Error "+response.error.code+": "+response.error.message);
                     loadLocations();
-                    
                 }
             })
             .error(function(data, status, headers, config)

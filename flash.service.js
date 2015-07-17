@@ -11,7 +11,7 @@
 
         service.Success = Success;
         service.Error = Error;
-
+        
         initService();
 
         return service;
@@ -33,12 +33,21 @@
                 }
             }
         }
+        
+        function removeFlashMessage() {
+            var flash = $rootScope.flash;
+            delete $rootScope.flash;
+            if (flash) {
+                delete $rootScope.flash;
+            }
+        }
 
         function Success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'success', 
-                keepAfterLocationChange: keepAfterLocationChange
+                keepAfterLocationChange: keepAfterLocationChange,
+                remove: removeFlashMessage
             };
         }
 
@@ -46,7 +55,8 @@
             $rootScope.flash = {
                 message: message,
                 type: 'error',
-                keepAfterLocationChange: keepAfterLocationChange
+                keepAfterLocationChange: keepAfterLocationChange,
+                remove: removeFlashMessage
             };
             //$location.hash('flash');
             //$anchorScroll('flash');

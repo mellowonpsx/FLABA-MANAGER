@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
+        .module('app', ['ngRoute', 'ngCookies', 'schemaForm'])
         .config(config)
         .run(run);
 
@@ -16,8 +16,18 @@
             templateUrl: 'login.view.html',
             controllerAs: 'vm'
         })
+        .when('/location/nuova', {
+            controller: 'CreateLocationController',
+            templateUrl: 'empty.view.html',
+            controllerAs: 'vm'
+        })
         .when('/location/:id/modifica', {
-            controller: 'EditLocationController',
+            controller: 'LocationController',
+            templateUrl: 'location.view.html',
+            controllerAs: 'vm'
+        })
+        .when('/location/:id', {
+            controller: 'LocationController',
             templateUrl: 'location.view.html',
             controllerAs: 'vm'
         })

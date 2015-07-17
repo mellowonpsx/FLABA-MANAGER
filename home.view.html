@@ -1,116 +1,125 @@
 <div class="jumbotron">
-<h2 class="margin-bottom-30">Hi {{vm.user.username}} (level: {{vm.user.level}})!</h2>
-<div class="location-list">
-    <div class="row margin-bottom-30">
-        <div class="col-xs-12">
-            <form role="form">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-filter"></span></span>
-                    <input ng-model="query" type="text" class="form-control" placeholder="Filtra le location..." autofocus>
-                </div>
-            </form>
+    <h2 class="margin-bottom-30">Hi {{vm.user.username}} (level: {{vm.user.level}})!</h2>
+    <div class="location-list">
+        <div class="row margin-bottom-30">
+            <div class="col-xs-12">
+                <form role="form">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-filter"></span></span>
+                        <input ng-model="query" type="text" class="form-control" placeholder="Filtra le location..." autofocus>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class=" table-responsive">
+            <table class="table table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="" ng-init="orderByField='id.valore'; reverseSort = true;" ng-click="orderByField!='id.valore' ? reverseSort=false : null; orderByField='id.valore'; reverseSort = !reverseSort">
+                                Id
+                                <span ng-show="orderByField == 'id.valore'" class="fixed-width-20px">
+                                    <span ng-show="!reverseSort">&uarr;</span>
+                                    <span ng-show="reverseSort">&darr;</span>
+                                </span>
+                                <span ng-show="orderByField != 'id.valore'" class="fixed-width-20px">
+                                    <span>&nbsp;</span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="orderByField!='comune.valore' ? reverseSort=false : null; orderByField='comune.valore'; reverseSort = !reverseSort">
+                                Comune
+                                <span ng-show="orderByField == 'comune.valore'" class="fixed-width-20px">
+                                    <span ng-show="!reverseSort">&uarr;</span>
+                                    <span ng-show="reverseSort">&darr;</span>
+                                </span>
+                                <span ng-show="orderByField != 'comune.valore'" class="fixed-width-20px">
+                                    <span>&nbsp;</span>
+                                </span>
+                            </a>                    
+                        </th>
+                        <th>
+                            <a href="" ng-click="orderByField!='localita.valore' ? reverseSort=false : null; orderByField='localita.valore'; reverseSort = !reverseSort">
+                                Località
+                                <span ng-show="orderByField == 'localita.valore'" class="fixed-width-20px">
+                                    <span ng-show="!reverseSort">&uarr;</span>
+                                    <span ng-show="reverseSort">&darr;</span>
+                                </span>
+                                <span ng-show="orderByField != 'localita.valore'" class="fixed-width-20px">
+                                    <span>&nbsp;</span>
+                                </span>
+                            </a>   
+                        </th>
+                        <th>
+                            <a href="" ng-click="orderByField!='provincia.valore' ? reverseSort=false : null; orderByField='provincia.valore'; reverseSort = !reverseSort">
+                                Provincia
+                                <span ng-show="orderByField == 'provincia.valore'" class="fixed-width-20px">
+                                    <span ng-show="!reverseSort">&uarr;</span>
+                                    <span ng-show="reverseSort">&darr;</span>
+                                </span>
+                                <span ng-show="orderByField != 'provincia.valore'" class="fixed-width-20px">
+                                    <span>&nbsp;</span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="orderByField!='qualita_acque.stelle.valore' ? reverseSort=true : null; orderByField='qualita_acque.stelle.valore'; reverseSort = !reverseSort">
+                                Qualità acque
+                                <span ng-show="orderByField == 'qualita_acque.stelle.valore'" class="fixed-width-20px">
+                                    <span ng-show="!reverseSort">&uarr;</span>
+                                    <span ng-show="reverseSort">&darr;</span>
+                                </span>
+                                <span ng-show="orderByField != 'qualita_acque.stelle.valore'" class="fixed-width-20px">
+                                    <span>&nbsp;</span>
+                                </span>
+                            </a>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <!--<th><span class="glyphicon glyphicon-list-alt"></span></th>
+                        <th><span class="glyphicon glyphicon-pencil"></span></th>
+                        <th><span class="glyphicon glyphicon-trash"></span></th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="location in vm.locations|orderBy:orderByField:!reverseSort|filter:{$:query}">
+                        <td>{{location.id.valore}}</td>
+                        <td>{{location.comune.valore}}</td>
+                        <td>{{location.localita.valore}}</td>
+                        <td>{{location.provincia.valore}}</td>
+                        <td ng-init="location.editing = false" ng-click="location.editing = true">
+                            <span ng-if="!location.editing">{{location.qualita_acque.classificazione.valore[location.qualita_acque.classificazione.valore.default]}}</span>
+                            <select ng-if="location.editing" ng-model="location.qualita_acque.stelle.valore" ng-change="location.editing = false; vm.updateLocationClassification(location.qualita_acque.stelle.valore, location._id);">
+                                <option value="3" ng-if="location.qualita_acque.stelle.valore != 3"> eccellete </option> 
+                                <option value="3" ng-if="location.qualita_acque.stelle.valore == 3" selected> eccellente </option>
+                                <option value="2" ng-if="location.qualita_acque.stelle.valore != 2"> buona </option> 
+                                <option value="2" ng-if="location.qualita_acque.stelle.valore == 2" selected> buona </option>
+                                <option value="1" ng-if="location.qualita_acque.stelle.valore != 1"> sufficiente </option> 
+                                <option value="1" ng-if="location.qualita_acque.stelle.valore == 1" selected> sufficiente </option>
+                                <option value="0" ng-if="location.qualita_acque.stelle.valore != 0"> scarsa </option> 
+                                <option value="0" ng-if="location.qualita_acque.stelle.valore == 0" selected> scarsa </option>
+                            </select>
+                            <!--
+                            <select ng-if="location.editing" ng-model="location.classificazione.codice"
+                                ng-change="location.editing = false; vm.updateLocationClassification(location.classificazione.codice, location.id);">
+                                <option ng-repeat="opzione in vm.classificationOption" value="{{opzione.codice}}" ng-if="location.classificazione.codice == opzione.codice" selected>{{opzione.nominale}}</option>
+                                <option ng-repeat="opzione in vm.classificationOption" value="{{opzione.codice}}" ng-if="location.classificazione.codice != opzione.codice"         >{{opzione.nominale}}</option>
+                            </select>-->
+                        </td>
+                        <td><a href="#/location/{{location._id}} " ng-click="" class="glyphicon glyphicon-list-alt"></a></td>
+                        <td><a href="#/location/{{location._id}}/modifica" ng-click="" class="glyphicon glyphicon-pencil"></a></td>
+                        <td><a href="" ng-click="vm.removeLocation(location._id)" class="glyphicon glyphicon-trash"></a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;">
+                            <img ng-if="vm.dataLoading" src="img/waiting.gif" />
+                            <a ng-if="!vm.dataLoading" href="#/location/nuova" ng-click="">Aggiungi nuova location</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class=" table-responsive">
-        <table class="table table-condensed table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        <a href="" ng-click="orderByField!='id' ? reverseSort=false : null; orderByField='id'; reverseSort = !reverseSort">
-                            Id
-                            <span ng-show="orderByField == 'id'" class="fixed-width-20px">
-                                <span ng-show="!reverseSort">&uarr;</span>
-                                <span ng-show="reverseSort">&darr;</span>
-                            </span>
-                            <span ng-show="orderByField != 'id'" class="fixed-width-20px">
-                                <span>&nbsp;</span>
-                            </span>
-                        </a>
-                    </th>
-                    <th>
-                        <a href="" ng-click="orderByField!='comune' ? reverseSort=false : null; orderByField='comune'; reverseSort = !reverseSort">
-                            Comune
-                            <span ng-show="orderByField == 'comune'" class="fixed-width-20px">
-                                <span ng-show="!reverseSort">&uarr;</span>
-                                <span ng-show="reverseSort">&darr;</span>
-                            </span>
-                            <span ng-show="orderByField != 'comune'" class="fixed-width-20px">
-                                <span>&nbsp;</span>
-                            </span>
-                        </a>                    
-                    </th>
-                    <th>
-                        <a href="" ng-click="orderByField!='nome' ? reverseSort=false : null; orderByField='nome'; reverseSort = !reverseSort">
-                            Nome
-                            <span ng-show="orderByField == 'nome'" class="fixed-width-20px">
-                                <span ng-show="!reverseSort">&uarr;</span>
-                                <span ng-show="reverseSort">&darr;</span>
-                            </span>
-                            <span ng-show="orderByField != 'nome'" class="fixed-width-20px">
-                                <span>&nbsp;</span>
-                            </span>
-                        </a>   
-                    </th>
-                    <th>
-                        <a href="" ng-click="orderByField!='provincia' ? reverseSort=false : null; orderByField='provincia'; reverseSort = !reverseSort">
-                            Provincia
-                            <span ng-show="orderByField == 'provincia'" class="fixed-width-20px">
-                                <span ng-show="!reverseSort">&uarr;</span>
-                                <span ng-show="reverseSort">&darr;</span>
-                            </span>
-                            <span ng-show="orderByField != 'provincia'" class="fixed-width-20px">
-                                <span>&nbsp;</span>
-                            </span>
-                        </a>
-                    </th>
-                    <th>
-                        <a href="" ng-click="orderByField!='classificazione.codice' ? reverseSort=true : null; orderByField='classificazione.codice'; reverseSort = !reverseSort">
-                            Classificazione
-                            <span ng-show="orderByField == 'classificazione.codice'" class="fixed-width-20px">
-                                <span ng-show="!reverseSort">&uarr;</span>
-                                <span ng-show="reverseSort">&darr;</span>
-                            </span>
-                            <span ng-show="orderByField != 'classificazione.codice'" class="fixed-width-20px">
-                                <span>&nbsp;</span>
-                            </span>
-                        </a>
-                    </th>
-                    <th><span class="glyphicon glyphicon-stats"></span></th>
-                    <th><span class="glyphicon glyphicon-pencil"></span></th>
-                    <th><span class="glyphicon glyphicon-trash"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="location in vm.locations|orderBy:orderByField:!reverseSort|filter:{$:query}">
-                    <td>{{location.id}}</td>
-                    <td>{{location.comune}}</td>
-                    <td>{{location.nome}}</td>
-                    <td>{{location.provincia}}</td>
-                    <td ng-click="location.editing = true">
-                        <span ng-if="!location.editing">{{location.classificazione.nominale}}</span>
-                        <select ng-if="location.editing" ng-model="location.classificazione.codice"
-                            ng-change="location.editing = false; vm.updateLocationClassification(location.classificazione.codice, location.id);">
-                            <option value="3">eccellente</option>
-                            <option value="2">buona</option>
-                            <option value="1">scarsa</option>
-                            <option value="0">merda</option>
-                        </select>
-                    </td>
-                    <td><a href="#/location/{{location.id}} " ng-click="" class="glyphicon glyphicon-stats"></a></td>
-                    <td><a href="#/location/{{location.id}}/modifica" ng-click="" class="glyphicon glyphicon-pencil"></a></td>
-                    <td><a href="" ng-click="vm.removeLocation(location.id)" class="glyphicon glyphicon-trash"></a></td>
-                </tr>
-                <tr>
-                    <td colspan="8" style="text-align: center;">
-                        <img ng-if="vm.dataLoading" src="img/wait1.gif" />
-                        <a ng-if="!vm.dataLoading" href="#/addLocation" ng-click="">Aggiungi nuova location</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<!--<p><a href="#/" ng-click="vm.contactApi()" class="btn btn-primary">Manda un qualcosa</a></p>
-<p><a href="#/" ng-click="vm.contactApiNoAuth()" class="btn btn-primary">Manda un qualcosa togliendo l'auth</a></p>-->
-<p><a href="#/login" class="btn btn-primary">Logout</a></p>
 </div>

@@ -14,7 +14,15 @@
         </div>
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Login</button>
-            <img ng-if="vm.dataLoading" src="img/wait1.gif" />
+            <img ng-if="vm.dataLoading" src="img/waiting.gif" />
+            <!--<div ng-if="vm.dataLoading" class="fill"><div class="clear-loading loading-effect-1 middle"><span></span><span></span><span></span></div></div>-->
+            <!--<div ng-show="vm.dataLoading" class="clear-loading loading-effect-1"><span></span></div>-->
+            <!--<h1>
+            1<div class="clear-loading loading-effect-1"><span></span><span></span><span></span><span></span></div>
+            2<div class="clear-loading loading-effect-2"><span></span></div>
+            3<div class="clear-loading loading-effect-3"><div><span></span></div></div>
+            4<div class="clear-loading loading-effect-4"><span></span><span></span><span></span><span></span></div>
+            </h1>-->
         </div>
     </form>
 </div>

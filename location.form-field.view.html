@@ -1,0 +1,16 @@
+<label>servizio attivo <input type="checkbox" ng-model="include_model.servizio_attivo" ng-model="checkboxModel.value2" ng-true-value="true" ng-false-value="false"></label>
+<div>
+    <label> descrizione </label>
+    <div>
+        <span class="flag-icon flag-icon-it"></span>
+        <textarea ng-model="include_model.descrizione.valore.IT" placeholder="Inserire descrizione in italiano" class="form-control form-inline" required></textarea>
+    </div>
+    <div>
+        <span class="flag-icon flag-icon-us form-inline"></span>
+        <textarea ng-model="include_model.descrizione.valore.EN" placeholder="Inserire descrizione in inglese" class="form-control form-inline" required></textarea>
+    </div>
+    <div>
+        <span class="flag-icon flag-icon-de"></span>
+        <textarea ng-model="include_model.descrizione.valore.DE" placeholder="Inserire descrizione in tedesco" class="form-control form-inline" required></textarea>
+    </div>
+</div>

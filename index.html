@@ -7,18 +7,22 @@
         <title>FLABA - Franchini/Leoni App Balneabilità &amp; API</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="css/flag-icon.css" />
+        <link rel="stylesheet" href="css/loader.css" />
         <link rel="stylesheet" href="css/flaba.css" />
         <link rel="shortcut icon" type="image/png" href="/favico.ico"/>
     </head>
     <body>
         <div class="container-fluid">
             <div class="jumbotron transparent">
-            <div class="row">
-                <div class="container navbar-fixed-top" ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-            </div>
-            <div class="row">
-                <div ng-view></div>
-            </div>
+                <div class="row">
+                    <div class="container navbar-fixed-top" ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" ng-dblclick="flash.remove()"></div>
+                </div>
+                <div class="row">
+                    <div ng-view></div>
+                    <!-- sistemare logout!! -->
+                    <p><a href="#/login" class="btn btn-primary">Logout</a></p>
+                </div>
             </div>
         </div>
         <div class="margin-bottom-10">
@@ -38,17 +42,31 @@
 	<script src="angularjs/angular.min.js"></script>
         <script src="angularjs/angular-route.js"></script>
         <script src="angularjs/angular-cookies.js"></script>
-
+        
+        <!-- angular-schemaform -->
+        <script src="angularjs/angular-sanitize.min.js"></script>
+        <script src="js/tv4/tv4.js"></script>
+        <script src="js/objectpath/ObjectPath.js"></script>
+        <script src="js/schema-form/schema-form.js"></script>
+        <script src="js/schema-form/bootstrap-decorator.js"></script>
+        
         <!-- angular js app modules-->
         <script src="app.js"></script>
         <script src="login.controller.js"></script>
         <script src="home.controller.js"></script>
-
+        <script src="location.controller.js"></script>
+        <script src="create.location.controller.js"></script>
+        
         <!-- angular js app services-->
         <script src="authentication.service.js"></script>
         <script src="flash.service.js"></script>
-
+        
         <!-- server url and https redirect -->
         <script src="js/server.url.js.php"></script>
+        
+        <script>
+            //console.log("loggo schema forms");
+            //console.log(schemaForm);
+        </script>
     </body>
 </html>
