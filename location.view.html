@@ -230,12 +230,13 @@
                 </h2>
                 <div ng-model="tempdata" ng-if="tempdata['sezione_immagini'].visible">
                 <div class="col-sm-12 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled || tempdata['sezione_immagini'].uploadInCorso">
                         <div ng-repeat="include_model in [location.immagini]" ng-include="'location.legend.view.html'"></div>
                         <div class="col-sm-4 margin-bottom-50" ng-repeat="immagine in location.immagini.lista" ng-cloak>
                             <img  ng-src="{{server.api+'/no-auth/getfile/'+immagine.filename}}" alt="{{immagine.filename}}" class="img-responsive"/>
                         </div>
                         <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" class="form-control"/>
+                        <img ng-if="tempdata['sezione_immagini'].uploadInCorso" src="img/waiting.gif" />
                     </fieldset>
                 </div>
                 </div>

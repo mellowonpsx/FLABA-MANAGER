@@ -111,6 +111,7 @@
         }
         
         $rootScope.uploadFile = function(files) {
+            $rootScope.tempdata['sezione_immagini'].uploadInCorso = true;
             var fd = new FormData();
             //Take the first selected file
             fd.append("file", files[0]);
@@ -119,9 +120,11 @@
                     if(response.success) {
                         //console.log("nuovofilename: ", response.data.filename);
                         $rootScope.location.immagini.lista.push({filename: response.data.filename});
+                        $rootScope.tempdata['sezione_immagini'].uploadInCorso = false;
                     }
                     else {
                         FlashService.Error("Error "+response.error.code+": "+response.error.message);
+                        $rootScope.tempdata['sezione_immagini'].uploadInCorso = false;
                     }
                 })
                 .error(function(data, status, headers, config)
@@ -131,6 +134,7 @@
                     console.log(status);
                     console.log(headers);
                     console.log(config);
+                    $rootScope.tempdata['sezione_immagini'].uploadInCorso = false;
                 });
         };
         
