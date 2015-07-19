@@ -10,12 +10,6 @@
         var vm = this;
         vm.user = null;
         vm.locations = null;
-        vm.classificationOption = [
-            {codice: 3, nominale: 'eccellente'},
-            {codice: 2, nominale: 'buona'},
-            {codice: 1, nominale: 'scarsa'},
-            {codice: 0, nominale: 'merda'}
-        ];
         vm.removeLocation = removeLocation;
         vm.updateLocationClassification = updateLocationClassification;
         initController();
@@ -54,9 +48,33 @@
             });
         }
         
+        loadClassificationOption();
+        
+        function loadClassificationOption() {
+            $http.get(server.api+"/valori-qualita-acque")
+            .success(function (response){
+                if(response.success)
+                {
+                    vm.classificationOption = response.data.qualita_acque;
+                }
+                else
+                {
+                    FlashService.Error("Error "+response.error.code+": "+response.error.message, true);
+                }
+            })
+            .error(function(data, status, headers, config)
+            {
+                FlashService.Error("Error 503: service unaviable, check network connection", true);
+                console.log(data);
+                console.log(status);
+                console.log(headers);
+                console.log(config);
+            });
+        }
+        
         function updateLocationClassification(codiceClassificazione, _id) {
             vm.dataLoading = true;
-            var qualita_acque = JSON.parse('[{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":3},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"eccellente","EN":"excellent","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":2},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"buona","EN":"good","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":1},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"sufficiente","EN":"sufficient","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":0},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"scarsa","EN":"poor","DE":"-"}}}}]');
+            var qualita_acque = vm.classificationOption; //JSON.parse('[{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":3},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"eccellente","EN":"excellent","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":2},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"buona","EN":"good","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":1},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"sufficiente","EN":"sufficient","DE":"-"}}}},{"qualita_acque":{"nome_campo":{"default":"IT","IT":"qualità delle acque","EN":"water quality","DE":"-"},"stelle":{"nome_campo":{"default":"IT","IT":"stelle","EN":"stars","DE":"-"},"valore":0},"classificazione":{"nome_campo":{"default":"IT","IT":"classificazione","EN":"classification","DE":"-"},"valore":{"default":"IT","IT":"scarsa","EN":"poor","DE":"-"}}}}]');
             var posizioneElemento= vm.locations.map(function(x) {return x._id; }).indexOf(_id);
             var posizioneClassificazione= qualita_acque.map(function(x){ return x.qualita_acque.stelle.valore}).indexOf(parseInt(codiceClassificazione));
             var vecchiaClassificazione = vm.locations[posizioneElemento].qualita_acque;

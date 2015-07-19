@@ -92,21 +92,9 @@
                         <td ng-init="location.editing = false" ng-click="location.editing = true">
                             <span ng-if="!location.editing">{{location.qualita_acque.classificazione.valore[location.qualita_acque.classificazione.valore.default]}}</span>
                             <select ng-if="location.editing" ng-model="location.qualita_acque.stelle.valore" ng-change="location.editing = false; vm.updateLocationClassification(location.qualita_acque.stelle.valore, location._id);">
-                                <option value="3" ng-if="location.qualita_acque.stelle.valore != 3"> eccellete </option> 
-                                <option value="3" ng-if="location.qualita_acque.stelle.valore == 3" selected> eccellente </option>
-                                <option value="2" ng-if="location.qualita_acque.stelle.valore != 2"> buona </option> 
-                                <option value="2" ng-if="location.qualita_acque.stelle.valore == 2" selected> buona </option>
-                                <option value="1" ng-if="location.qualita_acque.stelle.valore != 1"> sufficiente </option> 
-                                <option value="1" ng-if="location.qualita_acque.stelle.valore == 1" selected> sufficiente </option>
-                                <option value="0" ng-if="location.qualita_acque.stelle.valore != 0"> scarsa </option> 
-                                <option value="0" ng-if="location.qualita_acque.stelle.valore == 0" selected> scarsa </option>
+                                <option ng-repeat="opzione in vm.classificationOption" ng-if="location.qualita_acque.stelle.valore == opzione.qualita_acque.stelle.valore" selected value="{{opzione.qualita_acque.stelle.valore}}"> {{opzione.qualita_acque.classificazione.valore[opzione.qualita_acque.classificazione.valore.default]}} </option> 
+                                <option ng-repeat="opzione in vm.classificationOption" ng-if="location.qualita_acque.stelle.valore != opzione.qualita_acque.stelle.valore" value="{{opzione.qualita_acque.stelle.valore}}"> {{opzione.qualita_acque.classificazione.valore[opzione.qualita_acque.classificazione.valore.default]}} </option> 
                             </select>
-                            <!--
-                            <select ng-if="location.editing" ng-model="location.classificazione.codice"
-                                ng-change="location.editing = false; vm.updateLocationClassification(location.classificazione.codice, location.id);">
-                                <option ng-repeat="opzione in vm.classificationOption" value="{{opzione.codice}}" ng-if="location.classificazione.codice == opzione.codice" selected>{{opzione.nominale}}</option>
-                                <option ng-repeat="opzione in vm.classificationOption" value="{{opzione.codice}}" ng-if="location.classificazione.codice != opzione.codice"         >{{opzione.nominale}}</option>
-                            </select>-->
                         </td>
                         <td><a href="#/location/{{location._id}} " ng-click="" class="glyphicon glyphicon-list-alt"></a></td>
                         <td><a href="#/location/{{location._id}}/modifica" ng-click="" class="glyphicon glyphicon-pencil"></a></td>

@@ -10,26 +10,26 @@
                     <span ng-if="tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-close pull-right"></span>
                 </h2>
                 <h2 class="margin-bottom-20" ng-model="tempdata" ng-click="tempdata['dati_localita'].visible = !tempdata['dati_localita'].visible">
-                    Dati della localit&agrave;
+                    Dati della località
                     <span ng-if="!tempdata['dati_localita'].visible" class="glyphicon glyphicon-collapse-down pull-right"></span>
                     <span ng-if="tempdata['dati_localita'].visible" class="glyphicon glyphicon-collapse-up pull-right"></span>
                 </h2>
-                <div ng-model="tempdata" ng-if="tempdata['dati_localita'].visible">
+                <div ng-if="tempdata['dati_localita'].visible">
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.id"></div>
-                        <input type="text" ng-model="location.id.valore" placeholder="Inserire id della località" class="form-control" required>
+                        <div ng-repeat="include_model in [location.id]" ng-include="'location.legend.view.html'"></div>
+                        <input type="text" ng-model="location.id.valore" placeholder="Inserire id della località" class="form-control" required />
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.localita"></div>
+                        <div ng-repeat="include_model in [location.localita]" ng-include="'location.legend.view.html'"></div>
                         <input type="text" ng-model="location.localita.valore" placeholder="Inserire nome della località" class="form-control" required>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.coordinate"></div>
+                        <div ng-repeat="include_model in [location.coordinate]" ng-include="'location.legend.view.html'"></div>
                         <label>{{location.coordinate.latitudine.nome_campo[location.coordinate.latitudine.nome_campo.default]}}</label>
                         <input type="number" step="any" ng-model="location.coordinate.latitudine.valore" placeholder="latitudine" class="form-control" required>
                         <label>{{location.coordinate.longitudine.nome_campo[location.coordinate.longitudine.nome_campo.default]}}</label>
@@ -39,26 +39,30 @@
                 <div class="clearfix"> <!-- clearfix!! --></div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.comune"></div>
+                        <div ng-repeat="include_model in [location.comune]" ng-include="'location.legend.view.html'"></div>
                         <input type="text" ng-model="location.comune.valore" placeholder="Inserire comune della località" class="form-control" required>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.provincia"></div>
+                        <div ng-repeat="include_model in [location.provincia]" ng-include="'location.legend.view.html'"></div>
                         <input type="text" ng-model="location.provincia.valore" placeholder="Inserire provincia della località" class="form-control" required>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
                         <!--<div ng-include="'location.legend.view.html'" ng-init="include_model = location.qualita_acque"></div>-->
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'"  ng-init="include_model = location.qualita_acque"></div>
-                        <select ng-model="location.qualita_acque.stelle.valore" ng-change="settaQualita(location.qualita_acque.stelle.valore);" class="form-control">
-                            <option value="3"> Eccellete </option> 
-                            <option value="2"> Buona </option> 
-                            <option value="1"> Media </option> 
-                            <option value="0"> Scarsa </option> 
+                        <div ng-repeat="include_model in [location.qualita_acque]" ng-include="'location.legend.view.html'"></div>
+                        <select  ng-model="location.qualita_acque.stelle.valore" ng-change="settaQualita(location.qualita_acque.stelle.valore);" class="form-control">
+                            <option ng-repeat="opzione in classificationOption" ng-if="location.qualita_acque.stelle.valore == opzione.qualita_acque.stelle.valore" selected value="{{opzione.qualita_acque.stelle.valore}}"> {{opzione.qualita_acque.classificazione.valore[opzione.qualita_acque.classificazione.valore.default]}} </option> 
+                            <option ng-repeat="opzione in classificationOption" ng-if="location.qualita_acque.stelle.valore != opzione.qualita_acque.stelle.valore" value="{{opzione.qualita_acque.stelle.valore}}"> {{opzione.qualita_acque.classificazione.valore[opzione.qualita_acque.classificazione.valore.default]}} </option> 
                         </select>
+                        <!--<select ng-model="location.qualita_acque.stelle.valore" ng-change="settaQualita(location.qualita_acque.stelle.valore);" class="form-control">
+                            <option value="3"> eccellete </option> 
+                            <option value="2"> buona </option> 
+                            <option value="1"> sufficiente </option> 
+                            <option value="0"> scarsa </option> 
+                        </select>-->
                     </fieldset>
                 </div>
                 </div>
@@ -67,9 +71,8 @@
                     <span ng-if="!tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-open pull-right"></span>
                     <span ng-if="tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-close pull-right"></span>
                 </h2>                
-                <h2 class="margin-bottom-20">
+                <h2 class="margin-bottom-20" ng-model="tempdata" ng-click="tempdata['descrizione_area'].visible = !tempdata['descrizione_area'].visible">
                     Descrizione area
-                    <span ng-model="tempdata" ng-click="tempdata['descrizione_area'].visible = !tempdata['descrizione_area'].visible">
                     <span ng-if="!tempdata['descrizione_area'].visible" class="glyphicon glyphicon-collapse-down pull-right"></span>
                     <span ng-if="tempdata['descrizione_area'].visible" class="glyphicon glyphicon-collapse-up pull-right"></span>
                 </h2>
@@ -171,9 +174,8 @@
                     <span ng-if="!tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-open pull-right"></span>
                     <span ng-if="tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-close pull-right"></span>
                 </h2>                
-                <h2 class="margin-bottom-20">
+                <h2 class="margin-bottom-20" ng-model="tempdata" ng-click="tempdata['informazioni_utili'].visible = !tempdata['informazioni_utili'].visible">
                     Informazioni utili
-                    <span ng-model="tempdata" ng-click="tempdata['informazioni_utili'].visible = !tempdata['informazioni_utili'].visible">
                     <span ng-if="!tempdata['informazioni_utili'].visible" class="glyphicon glyphicon-collapse-down pull-right"></span>
                     <span ng-if="tempdata['informazioni_utili'].visible" class="glyphicon glyphicon-collapse-up pull-right"></span>
                 </h2>
@@ -215,8 +217,29 @@
                         <div ng-repeat="i in [1]" ng-include="'location.info-field-no-name.view.html'" ng-init="include_model = location.informazioni_utili.carabinieri"></div>
                     </fieldset>
                 </div>
+                </div>
                 <div class="clearfix margin-bottom-50"> <!-- clearfix!! --></div>
-                 </div>
+                <h2 class="margin-bottom-20" ng-model="tempdata" ng-click="tempdata['barra_laterale'].visible = !tempdata['barra_laterale'].visible; tempdata['barra_laterale'].classe == 'col-sm-8' ? tempdata['barra_laterale'].classe = 'col-sm-12' : tempdata['barra_laterale'].classe = 'col-sm-8';">
+                    <span ng-if="!tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-open pull-right"></span>
+                    <span ng-if="tempdata['barra_laterale'].visible" class="glyphicon glyphicon-eye-close pull-right"></span>
+                </h2>                
+                <h2 class="margin-bottom-20" ng-model="tempdata" ng-click="tempdata['sezione_immagini'].visible = !tempdata['sezione_immagini'].visible">
+                    Immagini
+                    <span ng-if="!tempdata['sezione_immagini'].visible" class="glyphicon glyphicon-collapse-down pull-right"></span>
+                    <span ng-if="tempdata['sezione_immagini'].visible" class="glyphicon glyphicon-collapse-up pull-right"></span>
+                </h2>
+                <div ng-model="tempdata" ng-if="tempdata['sezione_immagini'].visible">
+                <div class="col-sm-12 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.immagini]" ng-include="'location.legend.view.html'"></div>
+                        <div class="col-sm-4 margin-bottom-50" ng-repeat="immagine in location.immagini.lista" ng-cloak>
+                            <img  ng-src="{{server.api+'/no-auth/getfile/'+immagine.filename}}" alt="{{immagine.filename}}" class="img-responsive"/>
+                        </div>
+                        <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" class="form-control"/>
+                    </fieldset>
+                </div>
+                </div>
+                <div class="clearfix margin-bottom-50"> <!-- clearfix!! --></div>
                 <button type="submit" class="btn btn-primary" ng-show="!tempdata['form_disabled'].disabled">Salva</button>
                 <button type="button" class="btn btn-primary" ng-show="tempdata['form_disabled'].disabled" ng-click="tempdata['form_disabled'].disabled = false">Abilita modifica</button>
             </form>
