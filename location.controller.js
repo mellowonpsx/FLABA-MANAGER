@@ -114,6 +114,9 @@
             $rootScope.tempdata['sezione_immagini'].uploadInCorso = true;
             var fd = new FormData();
             //Take the first selected file
+            if(files[0] == undefined) {
+                return
+            }
             fd.append("file", files[0]);
             $http.put(server.api+"/putfile", fd, {headers: {'Content-Type': undefined }})
                 .success(function (response){
