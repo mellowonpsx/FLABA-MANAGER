@@ -57,12 +57,6 @@
                             <option ng-repeat="opzione in classificationOption" ng-if="location.qualita_acque.stelle.valore == opzione.qualita_acque.stelle.valore" selected value="{{opzione.qualita_acque.stelle.valore}}"> {{opzione.qualita_acque.classificazione.valore[opzione.qualita_acque.classificazione.valore.default]}} </option> 
                             <option ng-repeat="opzione in classificationOption" ng-if="location.qualita_acque.stelle.valore != opzione.qualita_acque.stelle.valore" value="{{opzione.qualita_acque.stelle.valore}}"> {{opzione.qualita_acque.classificazione.valore[opzione.qualita_acque.classificazione.valore.default]}} </option> 
                         </select>
-                        <!--<select ng-model="location.qualita_acque.stelle.valore" ng-change="settaQualita(location.qualita_acque.stelle.valore);" class="form-control">
-                            <option value="3"> eccellete </option> 
-                            <option value="2"> buona </option> 
-                            <option value="1"> sufficiente </option> 
-                            <option value="0"> scarsa </option> 
-                        </select>-->
                     </fieldset>
                 </div>
                 </div>
@@ -79,91 +73,91 @@
                 <div ng-model="tempdata" ng-if="tempdata['descrizione_area'].visible">
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.accesso_pubblico"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.accesso_pubblico"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.accesso_pubblico]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.accesso_pubblico]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.handicap"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.handicap"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.handicap]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.handicap]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.parcheggio"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.parcheggio"></div>
-                    </fieldset>
-                </div>
-                <div class="clearfix"> <!-- clearfix!! --></div>
-                <div class="col-sm-4 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.servizi_igienici"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.servizi_igienici"></div>
-                    </fieldset>
-                </div>
-                <div class="col-sm-4 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.area_pubblica"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.area_pubblica"></div>
-                    </fieldset>
-                </div>
-                <div class="col-sm-4 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.area_verde"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.area_verde"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.parcheggio]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.parcheggio]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="clearfix"> <!-- clearfix!! --></div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.area_privata"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.area_privata"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.servizi_igienici]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.servizi_igienici]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.area_pic_nic"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.area_pic_nic"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_pubblica]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_pubblica]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.area_giochi"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.area_giochi"></div>
-                    </fieldset>
-                </div>
-                <div class="clearfix"> <!-- clearfix!! --></div>
-                <div class="col-sm-4 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.bar_ristorante"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.bar_ristorante"></div>
-                    </fieldset>
-                </div>
-                <div class="col-sm-4 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.attracco_barche"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.attracco_barche"></div>
-                    </fieldset>
-                </div>
-                <div class="col-sm-4 margin-bottom-50">
-                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.piste_ciclopedonali"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.piste_ciclopedonali"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_verde]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_verde]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="clearfix"> <!-- clearfix!! --></div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.strutture_sportive"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.form-field.view.html'" ng-init="include_model = location.descrizione_area.strutture_sportive"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_privata]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_privata]" ng-include="'location.form-field.view.html'"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-4 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.descrizione_area.area_pic_nic]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_pic_nic]" ng-include="'location.form-field.view.html'"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-4 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.descrizione_area.area_giochi]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.area_giochi]" ng-include="'location.form-field.view.html'"></div>
+                    </fieldset>
+                </div>
+                <div class="clearfix"> <!-- clearfix!! --></div>
+                <div class="col-sm-4 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.descrizione_area.bar_ristorante]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.bar_ristorante]" ng-include="'location.form-field.view.html'"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-4 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.descrizione_area.attracco_barche]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.attracco_barche]" ng-include="'location.form-field.view.html'"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-4 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.descrizione_area.piste_ciclopedonali]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.piste_ciclopedonali]" ng-include="'location.form-field.view.html'"></div>
+                    </fieldset>
+                </div>
+                <div class="clearfix"> <!-- clearfix!! --></div>
+                <div class="col-sm-4 margin-bottom-50">
+                    <fieldset ng-disabled="tempdata['form_disabled'].disabled">
+                        <div ng-repeat="include_model in [location.descrizione_area.strutture_sportive]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.descrizione_area.strutture_sportive]" ng-include="'location.form-field.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="clearfix"> <!-- clearfix!! --></div>
                 <div class="col-sm-12 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.descrizione_area.sport_praticabili"></div>
-                        <div ng-repeat="sport in location.descrizione_area.sport_praticabili.lista" class="col-sm-4 margin-bottom-50" ng-include="'location.sport-field.view.html'" ng-init="include_model = sport">
+                        <div ng-repeat="include_model in [location.descrizione_area.sport_praticabili]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in location.descrizione_area.sport_praticabili.lista" class="col-sm-4 margin-bottom-50" ng-include="'location.sport-field.view.html'">
                         </div>
                         <a ng-click="aggiungiVoceASport()">Aggiungi un altro sport... </a>
                     </fieldset>
@@ -182,39 +176,39 @@
                 <div ng-model="tempdata" ng-if="tempdata['informazioni_utili'].visible">
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.informazioni_utili.guardia_medica"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.info-field-no-name.view.html'" ng-init="include_model = location.informazioni_utili.guardia_medica"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.guardia_medica]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.guardia_medica]" ng-include="'location.info-field-no-name.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.informazioni_utili.pronto_soccorso"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.info-field-name.view.html'" ng-init="include_model = location.informazioni_utili.pronto_soccorso"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.pronto_soccorso]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.pronto_soccorso]" ng-include="'location.info-field-name.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.informazioni_utili.farmacia"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.info-field-name.view.html'" ng-init="include_model = location.informazioni_utili.farmacia"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.farmacia]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.farmacia]" ng-include="'location.info-field-name.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="clearfix margin-bottom-50"> <!-- clearfix!! --></div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.informazioni_utili.polizia_locale"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.info-field-no-name.view.html'" ng-init="include_model = location.informazioni_utili.polizia_locale"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.polizia_locale]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.polizia_locale]" ng-include="'location.info-field-no-name.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.informazioni_utili.polizia_provinciale"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.info-field-no-name.view.html'" ng-init="include_model = location.informazioni_utili.polizia_provinciale"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.polizia_provinciale]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.polizia_provinciale]" ng-include="'location.info-field-no-name.view.html'"></div>
                     </fieldset>
                 </div>
                 <div class="col-sm-4 margin-bottom-50">
                     <fieldset ng-disabled="tempdata['form_disabled'].disabled">
-                        <div ng-repeat="i in [1]" ng-include="'location.legend.view.html'" ng-init="include_model = location.informazioni_utili.carabinieri"></div>
-                        <div ng-repeat="i in [1]" ng-include="'location.info-field-no-name.view.html'" ng-init="include_model = location.informazioni_utili.carabinieri"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.carabinieri]" ng-include="'location.legend.view.html'"></div>
+                        <div ng-repeat="include_model in [location.informazioni_utili.carabinieri]" ng-include="'location.info-field-no-name.view.html'"></div>
                     </fieldset>
                 </div>
                 </div>
