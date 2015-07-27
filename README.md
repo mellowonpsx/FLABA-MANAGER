@@ -1,4 +1,4 @@
-# FLABA-API
+# FLABA-MANAGER
 F. L. App Balneabilità &amp; API
 # FLABA
 This repo contains the whole "FLABA" project, developed for Mobile Programming lecture.  
